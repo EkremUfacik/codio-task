@@ -15,7 +15,6 @@ type Props = {
 };
 
 const ProductsList = async ({ sort, order }: Props) => {
-  console.log();
   const products = await getProducts(sort, order);
 
   return (

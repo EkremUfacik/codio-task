@@ -27,16 +27,12 @@ const ProductModal = ({ open, setOpen, product }: Props) => {
   useEffect(() => {
     product && setProductInfo(product);
     !product && setProductInfo(initialProduct);
-  }, [product]);
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (product) {
-      await editProduct(productInfo);
-    } else {
-      await addProduct(productInfo);
-      setProductInfo(initialProduct);
-    }
+    product ? await editProduct(productInfo) : await addProduct(productInfo);
+
     setOpen(false);
     router.refresh();
   };
@@ -50,10 +46,10 @@ const ProductModal = ({ open, setOpen, product }: Props) => {
     setProductInfo({ ...productInfo, [name]: value });
   };
 
-  const handleClose = () => {
-    setOpen(false);
-    setProductInfo(product || initialProduct);
-  };
+  // const handleClose = () => {
+  //   setOpen(false);
+  // setProductInfo(product || initialProduct);
+  // };
 
   return (
     <div className="">
@@ -118,7 +114,7 @@ const ProductModal = ({ open, setOpen, product }: Props) => {
           </div>
         </form>
         <form method="dialog" className="modal-backdrop">
-          <button onClick={handleClose}>close</button>
+          <button onClick={() => setOpen(false)}>close</button>
         </form>
       </dialog>
     </div>

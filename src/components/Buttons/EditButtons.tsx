@@ -15,7 +15,7 @@ const EditButton = ({ product }: { product: ProductType }) => {
       >
         Edit
       </button>
-      <ProductModal open={open} setOpen={setOpen} product={product} />
+      {open && <ProductModal open={open} setOpen={setOpen} product={product} />}
     </div>
   );
 };

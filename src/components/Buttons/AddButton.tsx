@@ -12,7 +12,7 @@ const AddButton = () => {
       <button className="btn btn-outline" onClick={() => setOpen(true)}>
         Add Product
       </button>
-      <ProductModal open={open} setOpen={setOpen} />
+      {open && <ProductModal open={open} setOpen={setOpen} />}
     </div>
   );
 };
