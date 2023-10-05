@@ -8,17 +8,23 @@ import {
   HiOutlineArrowNarrowDown,
 } from "react-icons/hi";
 import ThemeButton from "./ThemeButton";
+import { Locale } from "@/i18n.config";
+import { getDictionary } from "@/lib/dictionary";
+import LocaleSwitcher from "./LocaleSwitcher";
 
 type Props = {
   sort: string;
   order: string;
+  lang: Locale;
 };
 
-const ProductsList = async ({ sort, order }: Props) => {
+const ProductsList = async ({ sort, order, lang }: Props) => {
   const products = await getProducts(sort, order);
+  const { tableHead } = await getDictionary(lang);
 
   return (
     <div className="overflow-x-auto">
+      <LocaleSwitcher />
       <ThemeButton />
       <AddButton />
       <table className="table w-full">
@@ -30,33 +36,33 @@ const ProductsList = async ({ sort, order }: Props) => {
                   className="flex items-center gap-1"
                   href="?_sort=title&_order=desc"
                 >
-                  Name <HiOutlineArrowNarrowUp />
+                  {tableHead.name} <HiOutlineArrowNarrowUp />
                 </Link>
               ) : (
                 <Link
                   className="flex items-center gap-1"
                   href="?_sort=title&_order=asc"
                 >
-                  Name <HiOutlineArrowNarrowDown />
+                  {tableHead.name} <HiOutlineArrowNarrowDown />
                 </Link>
               )}
             </th>
 
-            <th className="text-base">Description</th>
+            <th className="text-base">{tableHead.description}</th>
             <th className="text-base w-16">
               {order === "asc" ? (
                 <Link
                   className="flex items-center gap-1"
                   href="?_sort=price&_order=desc"
                 >
-                  Price <HiOutlineArrowNarrowUp />
+                  {tableHead.price} <HiOutlineArrowNarrowUp />
                 </Link>
               ) : (
                 <Link
                   className="flex items-center gap-1"
                   href="?_sort=price&_order=asc"
                 >
-                  Price <HiOutlineArrowNarrowDown />
+                  {tableHead.price} <HiOutlineArrowNarrowDown />
                 </Link>
               )}
             </th>
